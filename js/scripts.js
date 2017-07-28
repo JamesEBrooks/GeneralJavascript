@@ -1,20 +1,20 @@
 var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
-    var ballRadius = 10;
+    var ballRadius = 30;
     var x = canvas.width/2;
     var y = canvas.height-30;
-    var dx = 9
-    var dy = -7;
+    var dx = 5.3
+    var dy = -4.2;
     var paddleHeight = 10;
-    var paddleWidth = 75;
+    var paddleWidth = 90;
     var paddleX = (canvas.width-paddleWidth)/2;
     var rightPressed = false;
     var leftPressed = false;
-    var brickRowCount = 15;
-    var brickColumnCount = 15;
+    var brickRowCount = 14;
+    var brickColumnCount = 22;
     var brickWidth = 28;
     var brickHeight = 20;
-    var brickPadding = 10;
+    var brickPadding = 13;
     var brickOffsetTop = 20;
     var brickOffsetLeft = 20;
     var bricks = [];
@@ -67,7 +67,12 @@ var canvas = document.getElementById("myCanvas");
     function drawPaddle() {
         ctx.beginPath();
         ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-        ctx.fillStyle = "#005fdd";
+        var grd = ctx.createLinearGradient(75,50,5,90,60,100);
+
+        grd.addColorStop(0,"red");
+        grd.addColorStop(1,"white");
+
+        ctx.fillStyle = grd;//"#005fdd";
         ctx.fill();
         ctx.closePath();
     }
@@ -81,7 +86,7 @@ var canvas = document.getElementById("myCanvas");
                     bricks[c][r].y = brickY;
                     ctx.beginPath();
                     ctx.rect(brickX, brickY, brickWidth, brickHeight);
-                    ctx.fillStyle = rgb(10+Math.floor(Math.random() * 240), 10+Math.floor(Math.random() * 5), 100+Math.floor(Math.random() * 90));
+                    ctx.fillStyle = rgb(Math.floor(Math.random() * (c*90)), Math.floor(Math.random() *((c-r)*400)), 30+Math.floor(Math.random() * (r*90)));
                     ctx.fill();
                     ctx.closePath();
                 }
@@ -113,19 +118,19 @@ var canvas = document.getElementById("myCanvas");
                 
             }
             else {
-                //dy = -dy;
+                dy = -dy;
                 //alert("GAME OVER");
-                setTimeout(reload, 300);
-                function reload(){
-                document.location.reload();
-                }
+               // setTimeout(reload, 300);
+               // function reload(){
+               // document.location.reload();
+               // }
             }
         }
         if(rightPressed && paddleX < canvas.width-paddleWidth) {
-            paddleX +=12;
+            paddleX +=17;
         }
         else if(leftPressed && paddleX > 0) {
-            paddleX -= 12;
+            paddleX -= 17;
         }
         x += dx;
         y += dy;
